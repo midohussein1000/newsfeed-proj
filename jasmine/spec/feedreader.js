@@ -1,3 +1,13 @@
+// Hello.
+//
+// This is JSHint, a tool that helps to detect errors and potential
+// problems in your JavaScript code.
+//
+// To start, simply enter some JavaScript anywhere on this page. Your
+// report will appear on the right side.
+//
+// Additionally, you can toggle specific options in the Configure
+// menu.
 /* feedreader.js
  *
  * This is the spec file that Jasmine will read and contains
@@ -8,7 +18,7 @@
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
-$(function() {
+ $(function() {
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -76,7 +86,7 @@ $(function() {
         });
     });
     describe('Initial entries', function() { 
-        loadFeed() /*is asynchronous so this test wil require
+        loadFeed(); /*is asynchronous so this test wil require
          * the use of Jasmine's beforeEach and asynchronous done() function*/
         var numEntries;
          beforeEach(function(done) {
@@ -116,7 +126,7 @@ $(function() {
             newHeadText = this.headText;
         });
           it('Feed headlines should not match', function() {
-            expect(newHeadlineText).not.toEqual(headlineText);
+            expect(newHeadText).not.toEqual(headText);
          });
         });
     });
