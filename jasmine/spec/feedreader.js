@@ -60,47 +60,48 @@
     });
 
 
+   
+
     describe('The menu', function() {
-        var icon;
 
-        beforeEach(function() {
-            icon = $('.menu-icon-link');
-        });
+        var bodyClass = $('body').hasClass('menu-hidden');
 
-        it('is hidden by default', function() {
-            expect($("body").hasClass("menu-hidden")).toBe(true);
-        });
 
-        it('appears when clicked and disappears when clicked again', function() {
-            if ($("body").hasClass("menu-hidden")) {
-                icon.click();
+        /* Tests to make sure the menu is hidden when the page loads
+         */
+         it('is hidden by default', function() {
+            expect(bodyClass).toBe(true);
+         });
 
-                expect($("body").hasClass("menu-hidden")).toBe(false);
-            } 
+         /* Tests to see if the menu icon will toggle the menu
+          */
 
-            if (!$("body").hasClass("menu-hidden")) {
-                icon.click();
+          it('is toggle-able', function() {
+            var menuButton = $('.menu-icon-link');
+            menuButton.click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+            menuButton.click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+          });
 
-                expect($("body").hasClass("menu-hidden")).toBe(true);
-            }
-        });
     });
+
     describe('Initial entries', function() { 
-        loadFeed(); /*is asynchronous so this test wil require
-         * the use of Jasmine's beforeEach and asynchronous done() function*/
         var numEntries;
-         beforeEach(function(done) {
+        //call loadFeed for first feed. loadFeed has a second paramater for a callback.
+        beforeEach(function(done) {
             loadFeed(0, done);
         });
 
-         
-        it('are present', function(done) {
+        /* This test checks that after the initial feed is loaded, there are 
+        * entries appearing.
+         */
+        it('have at least one entry', function(done) {
             numEntries = $('.feed').find('.entry').length;
-            expect(numEntries).not.toBe(null);
+            expect(numEntries).toBeGreaterThan(0);
             done();
         });
     });
-
     describe('New Feed Selection', function() { 
         var headText, newHeadText;
 
@@ -112,7 +113,6 @@
          it('loads feed 0 when called', function() {
             expect(window.loadFeed).toHaveBeenCalledWith(0, jasmine.any(Function));
              this.headText = $('.entry').children('h2').text();
-            headText = this.headlineText;
         });
 
         describe('loads a new feed', function() {
