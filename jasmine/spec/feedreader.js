@@ -42,10 +42,10 @@ $(function() {
          */
 
          it('have names', function() {
-            allFeeds.forEach(function(value) {
-                expect(value.name).toBeDefined();
-                expect(value.name.length).toBeGreaterThan(1);
-            });
+           for(var x = 0; x < allFeeds.length; x++) {
+                expect(allFeeds[x].name).toBeDefined();
+                expect(allFeeds[x].name).not.toBe('');
+            }
          });
     });
 
