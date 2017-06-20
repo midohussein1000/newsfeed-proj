@@ -112,7 +112,7 @@
 
          it('loads feed 0 when called', function() {
             expect(window.loadFeed).toHaveBeenCalledWith(0, jasmine.any(Function));
-             this.headText = $('.entry').children('h2').text();
+             headText = $('.entry').children('h2').text();
         });
 
         describe('loads a new feed', function() {
