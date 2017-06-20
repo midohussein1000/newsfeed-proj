@@ -18,12 +18,12 @@
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
- $(function() {
+$(function() {
     /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
-    describe('RSS Feeds',function() {
+     * a related set of tests. This suite is all about the RSS
+     * feeds definitions, the allFeeds variable in our application.
+     */
+    describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
          * empty. Experiment with this before you get started on
@@ -31,7 +31,7 @@
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        it('are defined',function() {
+        it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
@@ -39,54 +39,54 @@
         /*that loops within each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.*/
-         it('contain a URL',function() {
-            for(var x = 0; x < allFeeds.length; x++) {
+        it('contain a URL', function() {
+            for (var x = 0; x < allFeeds.length; x++) {
                 expect(allFeeds[x].url).toBeDefined();
                 expect(allFeeds[x].url).not.toBe('');
             }
-         });
+        });
 
         /* makes sure that each feed in the allFeeds object
          *and ensures it has a name defined
          * and that the name is not empty.
          */
 
-         it('have names',function() {
-           for(var x = 0; x < allFeeds.length; x++) {
+        it('have names', function() {
+            for (var x = 0; x < allFeeds.length; x++) {
                 expect(allFeeds[x].name).toBeDefined();
                 expect(allFeeds[x].name).not.toBe('');
             }
-         });
+        });
     });
 
 
-   
 
-    describe('The menu',function() {
+
+    describe('The menu', function() {
 
         var bodyClass = $('body').hasClass('menu-hidden');
 
 
         /* Tests to make sure the menu is hidden when the page loads
          */
-         it('is hidden by default',function() {
+        it('is hidden by default', function() {
             expect(bodyClass).toBe(true);
-         });
+        });
 
-         /* Tests to see if the menu icon will toggle the menu
-          */
+        /* Tests to see if the menu icon will toggle the menu
+         */
 
-          it('is toggle-able',function() {
+        it('is toggle-able', function() {
             var menuButton = $('.menu-icon-link');
             menuButton.click();
             expect($('body').hasClass('menu-hidden')).toBe(false);
             menuButton.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
-          });
+        });
 
     });
 
-    describe('Initial entries',function() { 
+    describe('Initial entries', function() {
         var numEntries;
         //call loadFeed for first feed. loadFeed has a second paramater for a callback.
         beforeEach(function(done) {
@@ -94,41 +94,41 @@
         });
 
         /* This test checks that after the initial feed is loaded, there are 
-        * entries appearing.
+         * entries appearing.
          */
-        it('have at least one entry',function(done) {
+        it('have at least one entry', function(done) {
             numEntries = $('.feed').find('.entry').length;
             expect(numEntries).toBeGreaterThan(0);
             done();
         });
     });
-    describe('New Feed Selection',function() { 
+    describe('New Feed Selection', function() {
         var headText,
-          newHeadText;
+            newHeadText;
 
         beforeEach(function(done) {
             spyOn(window, 'loadFeed').and.callThrough();
             loadFeed(0, done);
         });
 
-         it('loads feed 0 when called',function() {
+        it('loads feed 0 when called', function() {
             expect(window.loadFeed).toHaveBeenCalledWith(0, jasmine.any(Function));
-             headText = $('.entry').children('h2').text();
+            headText = $('.entry').children('h2').text();
         });
 
-        describe('loads a new feed',function() {
+        describe('loads a new feed', function() {
             beforeEach(function(done) {
                 loadFeed(1, done);
             });
 
-         it('loads feed 1 when called',function() {
-            expect(window.loadFeed).toHaveBeenCalledWith(1, jasmine.any(Function));
-            this.headText = $('.entry').children('h2').text();
-            newHeadText = this.headText;
-        });
-          it('Feed headlines should not match',function() {
-            expect(newHeadText).not.toEqual(headText);
-         });
+            it('loads feed 1 when called', function() {
+                expect(window.loadFeed).toHaveBeenCalledWith(1, jasmine.any(Function));
+                this.headText = $('.entry').children('h2').text();
+                newHeadText = this.headText;
+            });
+            it('Feed headlines should not match', function() {
+                expect(newHeadText).not.toEqual(headText);
+            });
         });
     });
 }());
